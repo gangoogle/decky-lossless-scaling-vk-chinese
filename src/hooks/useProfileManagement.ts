@@ -30,12 +30,12 @@ export function useProfileManagement() {
         return result;
       } else {
         console.error("Failed to load profiles:", result.error);
-        showErrorToast("Failed to load profiles", result.error || "Unknown error");
+        showErrorToast("加载配置文件失败", result.error || "未知错误");
         return result;
       }
     } catch (error) {
       console.error("Error loading profiles:", error);
-      showErrorToast("Error loading profiles", String(error));
+      showErrorToast("加载配置文件出错", String(error));
       return { success: false, error: String(error) };
     }
   }, []);
@@ -46,17 +46,17 @@ export function useProfileManagement() {
     try {
       const result: ProfileResult = await createProfile(profileName, sourceProfile || currentProfile);
       if (result.success) {
-        showSuccessToast("Profile created", `Created profile: ${profileName}`);
+        showSuccessToast("创建成功", `已创建配置：${profileName}`);
         await loadProfiles();
         return result;
       } else {
         console.error("Failed to create profile:", result.error);
-        showErrorToast("Failed to create profile", result.error || "Unknown error");
+        showErrorToast("创建配置失败", result.error || "未知错误");
         return result;
       }
     } catch (error) {
       console.error("Error creating profile:", error);
-      showErrorToast("Error creating profile", String(error));
+      showErrorToast("创建配置出错", String(error));
       return { success: false, error: String(error) };
     } finally {
       setIsLoading(false);
@@ -66,29 +66,29 @@ export function useProfileManagement() {
   // Delete a profile
   const handleDeleteProfile = useCallback(async (profileName: string) => {
     if (profileName === "decky-lsfg-vk") {
-      showErrorToast("Cannot delete default profile", "The default profile cannot be deleted");
-      return { success: false, error: "Cannot delete default profile" };
+      showErrorToast("无法删除默认配置", "默认配置文件无法被删除");
+      return { success: false, error: "无法删除默认配置" };
     }
 
     setIsLoading(true);
     try {
       const result: ProfileResult = await deleteProfile(profileName);
       if (result.success) {
-        showSuccessToast("Profile deleted", `Deleted profile: ${profileName}`);
+        showSuccessToast("删除成功", `已删除配置：${profileName}`);
         await loadProfiles();
-        // If we deleted the current profile, it should have switched to default
+        // 删除当前配置后自动切换到默认
         if (currentProfile === profileName) {
           setCurrentProfileState("decky-lsfg-vk");
         }
         return result;
       } else {
         console.error("Failed to delete profile:", result.error);
-        showErrorToast("Failed to delete profile", result.error || "Unknown error");
+        showErrorToast("删除配置失败", result.error || "未知错误");
         return result;
       }
     } catch (error) {
       console.error("Error deleting profile:", error);
-      showErrorToast("Error deleting profile", String(error));
+      showErrorToast("删除配置出错", String(error));
       return { success: false, error: String(error) };
     } finally {
       setIsLoading(false);
@@ -98,29 +98,29 @@ export function useProfileManagement() {
   // Rename a profile
   const handleRenameProfile = useCallback(async (oldName: string, newName: string) => {
     if (oldName === "decky-lsfg-vk") {
-      showErrorToast("Cannot rename default profile", "The default profile cannot be renamed");
-      return { success: false, error: "Cannot rename default profile" };
+      showErrorToast("无法重命名默认配置", "默认配置文件无法被重命名");
+      return { success: false, error: "无法重命名默认配置" };
     }
 
     setIsLoading(true);
     try {
       const result: ProfileResult = await renameProfile(oldName, newName);
       if (result.success) {
-        showSuccessToast("Profile renamed", `Renamed profile to: ${newName}`);
+        showSuccessToast("重命名成功", `已重命名为：${newName}`);
         await loadProfiles();
-        // Update current profile if it was renamed
+        // 如果当前配置被重命名则更新
         if (currentProfile === oldName) {
           setCurrentProfileState(newName);
         }
         return result;
       } else {
         console.error("Failed to rename profile:", result.error);
-        showErrorToast("Failed to rename profile", result.error || "Unknown error");
+        showErrorToast("重命名失败", result.error || "未知错误");
         return result;
       }
     } catch (error) {
       console.error("Error renaming profile:", error);
-      showErrorToast("Error renaming profile", String(error));
+      showErrorToast("重命名出错", String(error));
       return { success: false, error: String(error) };
     } finally {
       setIsLoading(false);
@@ -134,16 +134,16 @@ export function useProfileManagement() {
       const result: ProfileResult = await setCurrentProfile(profileName);
       if (result.success) {
         setCurrentProfileState(profileName);
-        showSuccessToast("Profile switched", `Switched to profile: ${profileName}`);
+        showSuccessToast("切换成功", `已切换到配置：${profileName}`);
         return result;
       } else {
         console.error("Failed to switch profile:", result.error);
-        showErrorToast("Failed to switch profile", result.error || "Unknown error");
+        showErrorToast("切换配置失败", result.error || "未知错误");
         return result;
       }
     } catch (error) {
       console.error("Error switching profile:", error);
-      showErrorToast("Error switching profile", String(error));
+      showErrorToast("切换配置出错", String(error));
       return { success: false, error: String(error) };
     } finally {
       setIsLoading(false);
@@ -159,12 +159,12 @@ export function useProfileManagement() {
         return result;
       } else {
         console.error("Failed to update profile config:", result.error);
-        showErrorToast("Failed to update profile config", result.error || "Unknown error");
+        showErrorToast("更新配置失败", result.error || "未知错误");
         return result;
       }
     } catch (error) {
       console.error("Error updating profile config:", error);
-      showErrorToast("Error updating profile config", String(error));
+      showErrorToast("更新配置出错", String(error));
       return { success: false, error: String(error) };
     } finally {
       setIsLoading(false);

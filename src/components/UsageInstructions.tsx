@@ -20,7 +20,7 @@ export function UsageInstructions({ config: _config }: UsageInstructionsProps) {
             color: "white"
           }}
         >
-          Usage Instructions
+          使用说明
         </div>
       </PanelSectionRow>
 
@@ -33,7 +33,7 @@ export function UsageInstructions({ config: _config }: UsageInstructionsProps) {
             whiteSpace: "pre-wrap"
           }}
         >
-          Click "Copy Launch Option" button, then paste it into your Steam game's launch options to enable frame generation.
+          点击“复制启动参数”按钮，然后将其粘贴到 Steam 游戏的启动参数中以启用帧生成。
         </div>
       </PanelSectionRow>
 
@@ -65,7 +65,7 @@ export function UsageInstructions({ config: _config }: UsageInstructionsProps) {
             marginTop: "8px"
           }}
         >
-The configuration is stored in ~/.config/lsfg-vk/conf.toml and hot-reloads while games are running.
+配置文件存储在 ~/.config/lsfg-vk/conf.toml，游戏运行时支持热重载。
         </div>
       </PanelSectionRow>
     </>

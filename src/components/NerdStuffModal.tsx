@@ -61,42 +61,42 @@ export function NerdStuffModal({ closeModal }: NerdStuffModalProps) {
   return (
     <ModalRoot onCancel={closeModal} onOK={closeModal}>
       {loading && (
-        <div>Loading information...</div>
+        <div>正在加载信息...</div>
       )}
       
       {error && (
-        <div>Error: {error}</div>
+        <div>错误: {error}</div>
       )}
       
       {!loading && !error && (
         <>
-          {/* DLL Stats Section */}
+          {/* DLL 信息区块 */}
           {dllStats && (
             <>
               {!dllStats.success ? (
-                <div>{dllStats.error || "Failed to get DLL stats"}</div>
+                <div>{dllStats.error || "获取 DLL 信息失败"}</div>
               ) : (
                 <div>
-                  <Field label="DLL Path">
+                  <Field label="DLL 路径">
                     <Focusable
                       onClick={() => dllStats.dll_path && copyToClipboard(dllStats.dll_path)}
                       onActivate={() => dllStats.dll_path && copyToClipboard(dllStats.dll_path)}
                     >
-                      {dllStats.dll_path || "Not available"}
+                      {dllStats.dll_path || "无数据"}
                     </Focusable>
                   </Field>
                   
-                  <Field label="SHA256 Hash">
+                  <Field label="SHA256 哈希">
                     <Focusable
                       onClick={() => dllStats.dll_sha256 && copyToClipboard(dllStats.dll_sha256)}
                       onActivate={() => dllStats.dll_sha256 && copyToClipboard(dllStats.dll_sha256)}
                     >
-                      {dllStats.dll_sha256 ? formatSHA256(dllStats.dll_sha256) : "Not available"}
+                      {dllStats.dll_sha256 ? formatSHA256(dllStats.dll_sha256) : "无数据"}
                     </Focusable>
                   </Field>
                   
                   {dllStats.dll_source && (
-                    <Field label="Detection Source">
+                    <Field label="检测来源">
                       <div>{dllStats.dll_source}</div>
                     </Field>
                   )}
@@ -105,15 +105,15 @@ export function NerdStuffModal({ closeModal }: NerdStuffModalProps) {
             </>
           )}
 
-          {/* Launch Script Section */}
+          {/* 启动脚本区块 */}
           {scriptContent && (
-            <Field label="Launch Script">
+            <Field label="启动脚本">
               {!scriptContent.success ? (
-                <div>Script not found: {scriptContent.error}</div>
+                <div>未找到脚本: {scriptContent.error}</div>
               ) : (
                 <div>
                   <div style={{ marginBottom: "8px", fontSize: "0.9em", opacity: 0.8 }}>
-                    Path: {scriptContent.path}
+                    路径: {scriptContent.path}
                   </div>
                   <Focusable
                     onClick={() => scriptContent.content && copyToClipboard(scriptContent.content)}
@@ -128,7 +128,7 @@ export function NerdStuffModal({ closeModal }: NerdStuffModalProps) {
                       overflow: "auto",
                       maxHeight: "150px"
                     }}>
-                      {scriptContent.content || "No content"}
+                      {scriptContent.content || "无内容"}
                     </pre>
                   </Focusable>
                 </div>
@@ -136,15 +136,15 @@ export function NerdStuffModal({ closeModal }: NerdStuffModalProps) {
             </Field>
           )}
 
-          {/* Config File Section */}
+          {/* 配置文件区块 */}
           {configContent && (
-            <Field label="Configuration File">
+            <Field label="配置文件">
               {!configContent.success ? (
-                <div>Config not found: {configContent.error}</div>
+                <div>未找到配置: {configContent.error}</div>
               ) : (
                 <div>
                   <div style={{ marginBottom: "8px", fontSize: "0.9em", opacity: 0.8 }}>
-                    Path: {configContent.path}
+                    路径: {configContent.path}
                   </div>
                   <Focusable
                     onClick={() => configContent.content && copyToClipboard(configContent.content)}
@@ -158,7 +158,7 @@ export function NerdStuffModal({ closeModal }: NerdStuffModalProps) {
                       whiteSpace: "pre-wrap",
                       overflow: "auto"
                     }}>
-                      {configContent.content || "No content"}
+                      {configContent.content || "无内容"}
                     </pre>
                   </Focusable>
                 </div>
@@ -167,7 +167,7 @@ export function NerdStuffModal({ closeModal }: NerdStuffModalProps) {
           )}
           
             <Button onClick={closeModal}>
-              Close
+              关闭
             </Button>
         </>
       )}

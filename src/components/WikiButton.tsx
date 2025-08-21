@@ -14,7 +14,7 @@ export function WikiButton() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <FaBook />
-          <div>LSFG-VK Wiki</div>
+          <div>LSFG-VK 说明</div>
         </div>
       </ButtonItem>
     </PanelSectionRow>

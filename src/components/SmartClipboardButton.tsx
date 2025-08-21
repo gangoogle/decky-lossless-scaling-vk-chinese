@@ -79,7 +79,7 @@ export function SmartClipboardButton() {
             color: showSuccess ? "#4CAF50" : "inherit",
             fontWeight: showSuccess ? "bold" : "normal"
           }}>
-            {showSuccess ? "Copied to clipboard" : isLoading ? "Copying..." : "Copy Launch Option"}
+            {showSuccess ? "已复制到剪贴板" : isLoading ? "正在复制..." : "复制启动参数"}
           </div>
         </div>
       </ButtonItem>

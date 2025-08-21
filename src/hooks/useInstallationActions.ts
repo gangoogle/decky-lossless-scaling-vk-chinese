@@ -17,25 +17,25 @@ export function useInstallationActions() {
     reloadConfig?: () => Promise<void>
   ) => {
     setIsInstalling(true);
-    setInstallationStatus("Installing lsfg-vk...");
+    setInstallationStatus("正在安装 lsfg-vk...");
 
     try {
       const result = await installLsfgVk();
       if (result.success) {
         setIsInstalled(true);
-        setInstallationStatus("lsfg-vk installed successfully!");
+        setInstallationStatus("lsfg-vk 安装成功！");
         showInstallSuccessToast();
 
-        // Reload lsfg config after installation
+        // 安装后重新加载配置
         if (reloadConfig) {
           await reloadConfig();
         }
       } else {
-        setInstallationStatus(`Installation failed: ${result.error}`);
+        setInstallationStatus(`安装失败: ${result.error}`);
         showInstallErrorToast(result.error);
       }
     } catch (error) {
-      setInstallationStatus(`Installation failed: ${error}`);
+      setInstallationStatus(`安装失败: ${error}`);
       showInstallErrorToast(String(error));
     } finally {
       setIsInstalling(false);
@@ -47,20 +47,20 @@ export function useInstallationActions() {
     setInstallationStatus: (value: string) => void
   ) => {
     setIsUninstalling(true);
-    setInstallationStatus("Uninstalling lsfg-vk...");
+    setInstallationStatus("正在卸载 lsfg-vk...");
 
     try {
       const result = await uninstallLsfgVk();
       if (result.success) {
         setIsInstalled(false);
-        setInstallationStatus("lsfg-vk uninstalled successfully!");
+        setInstallationStatus("lsfg-vk 卸载成功！");
         showUninstallSuccessToast();
       } else {
-        setInstallationStatus(`Uninstallation failed: ${result.error}`);
+        setInstallationStatus(`卸载失败: ${result.error}`);
         showUninstallErrorToast(result.error);
       }
     } catch (error) {
-      setInstallationStatus(`Uninstallation failed: ${error}`);
+      setInstallationStatus(`卸载失败: ${error}`);
       showUninstallErrorToast(String(error));
     } finally {
       setIsUninstalling(false);

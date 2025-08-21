@@ -8,9 +8,9 @@ export default definePlugin(() => {
 
   return {
     // The name shown in various decky menus
-    name: "Lossless Scaling",
+    name: "无损缩放",
     // The element displayed at the top of your plugin's menu
-    titleView: <div className={staticClasses.Title}>Lossless Scaling</div>,
+    titleView: <div className={staticClasses.Title}>无损缩放</div>,
     // Always render to retain state when panel is toggled
     alwaysRender: true,
     // The content of your plugin's menu

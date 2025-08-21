@@ -49,7 +49,7 @@ export function FpsMultiplierControl({
             textAlign: "center"
           }}
         >
-          {config.multiplier < 2 ? "OFF" : `${config.multiplier}X`}
+          {config.multiplier < 2 ? "关闭" : `${config.multiplier}X`}
         </div>
         <DialogButton
           style={{

@@ -42,8 +42,8 @@ function TextInputModal({
   title, 
   description, 
   defaultValue = "", 
-  okText = "OK", 
-  cancelText = "Cancel", 
+  okText = "确定", 
+  cancelText = "取消", 
   onOK, 
   closeModal 
 }: TextInputModalProps) {
@@ -64,7 +64,7 @@ function TextInputModal({
         
         <div style={{ marginBottom: "24px" }}>
           <Field 
-            label="Name"
+            label="名称"
             childrenLayout="below"
             childrenContainerWidth="max"
           >
@@ -168,11 +168,11 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
         }
       } else {
         console.error("Failed to load profiles:", result.error);
-        showErrorToast("Failed to load profiles", result.error || "Unknown error");
+        showErrorToast("加载配置文件失败", result.error || "未知错误");
       }
     } catch (error) {
       console.error("Error loading profiles:", error);
-      showErrorToast("Error loading profiles", String(error));
+      showErrorToast("加载配置文件出错", String(error));
     }
   };
 
@@ -182,15 +182,15 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
       const result: ProfileResult = await setCurrentProfile(profileName);
       if (result.success) {
         setSelectedProfile(profileName);
-        showSuccessToast("Profile switched", `Switched to profile: ${profileName}`);
+        showSuccessToast("切换成功", `已切换到配置：${profileName}`);
         onProfileChange?.(profileName);
       } else {
         console.error("Failed to switch profile:", result.error);
-        showErrorToast("Failed to switch profile", result.error || "Unknown error");
+        showErrorToast("切换配置失败", result.error || "未知错误");
       }
     } catch (error) {
       console.error("Error switching profile:", error);
-      showErrorToast("Error switching profile", String(error));
+      showErrorToast("切换配置出错", String(error));
     } finally {
       setIsLoading(false);
     }
@@ -199,10 +199,10 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
   const handleCreateProfile = () => {
     showModal(
       <TextInputModal
-        title="Create New Profile"
-        description="Enter a name for the new profile. The current profile's settings will be copied."
-        okText="Create"
-        cancelText="Cancel"
+        title="新建配置文件"
+        description="请输入新配置文件名称。当前配置的设置将被复制。"
+        okText="创建"
+        cancelText="取消"
         onOK={(name: string) => {
           if (name.trim()) {
             createNewProfile(name.trim());
@@ -217,17 +217,17 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
     try {
       const result: ProfileResult = await createProfile(profileName, selectedProfile);
       if (result.success) {
-        showSuccessToast("Profile created", `Created profile: ${profileName}`);
+        showSuccessToast("创建成功", `已创建配置：${profileName}`);
         await loadProfiles();
-        // Automatically switch to the newly created profile
+        // 自动切换到新建的配置
         await handleProfileChange(profileName);
       } else {
         console.error("Failed to create profile:", result.error);
-        showErrorToast("Failed to create profile", result.error || "Unknown error");
+        showErrorToast("创建配置失败", result.error || "未知错误");
       }
     } catch (error) {
       console.error("Error creating profile:", error);
-      showErrorToast("Error creating profile", String(error));
+      showErrorToast("创建配置出错", String(error));
     } finally {
       setIsLoading(false);
     }
@@ -235,16 +235,16 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
 
   const handleDeleteProfile = () => {
     if (selectedProfile === "decky-lsfg-vk") {
-      showErrorToast("Cannot delete default profile", "The default profile cannot be deleted");
+      showErrorToast("无法删除默认配置", "默认配置文件无法被删除");
       return;
     }
 
     showModal(
       <ConfirmModal
-        strTitle="Delete Profile"
-        strDescription={`Are you sure you want to delete the profile "${selectedProfile}"? This action cannot be undone.`}
-        strOKButtonText="Delete"
-        strCancelButtonText="Cancel"
+        strTitle="删除配置文件"
+        strDescription={`确定要删除配置文件“${selectedProfile}”吗？此操作不可撤销。`}
+        strOKButtonText="删除"
+        strCancelButtonText="取消"
         onOK={() => deleteSelectedProfile()}
       />
     );
@@ -255,18 +255,18 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
     try {
       const result: ProfileResult = await deleteProfile(selectedProfile);
       if (result.success) {
-        showSuccessToast("Profile deleted", `Deleted profile: ${selectedProfile}`);
+        showSuccessToast("删除成功", `已删除配置：${selectedProfile}`);
         await loadProfiles();
-        // If we deleted the current profile, it should have switched to default
+        // 删除当前配置后自动切换到默认
         setSelectedProfile("decky-lsfg-vk");
         onProfileChange?.("decky-lsfg-vk");
       } else {
         console.error("Failed to delete profile:", result.error);
-        showErrorToast("Failed to delete profile", result.error || "Unknown error");
+        showErrorToast("删除配置失败", result.error || "未知错误");
       }
     } catch (error) {
       console.error("Error deleting profile:", error);
-      showErrorToast("Error deleting profile", String(error));
+      showErrorToast("删除配置出错", String(error));
     } finally {
       setIsLoading(false);
     }
@@ -282,17 +282,17 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
 
   const handleRenameProfile = () => {
     if (selectedProfile === "decky-lsfg-vk") {
-      showErrorToast("Cannot rename default profile", "The default profile cannot be renamed");
+      showErrorToast("无法重命名默认配置", "默认配置文件无法被重命名");
       return;
     }
 
     showModal(
       <TextInputModal
-        title="Rename Profile"
-        description={`Enter a new name for the profile "${selectedProfile}".`}
+        title="重命名配置文件"
+        description={`请输入配置“${selectedProfile}”的新名称。`}
         defaultValue={selectedProfile}
-        okText="Rename"
-        cancelText="Cancel"
+        okText="重命名"
+        cancelText="取消"
         onOK={(newName: string) => {
           if (newName.trim() && newName.trim() !== selectedProfile) {
             renameSelectedProfile(newName.trim());
@@ -307,17 +307,17 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
     try {
       const result: ProfileResult = await renameProfile(selectedProfile, newName);
       if (result.success) {
-        showSuccessToast("Profile renamed", `Renamed profile to: ${newName}`);
+        showSuccessToast("重命名成功", `已重命名为：${newName}`);
         await loadProfiles();
         setSelectedProfile(newName);
         onProfileChange?.(newName);
       } else {
         console.error("Failed to rename profile:", result.error);
-        showErrorToast("Failed to rename profile", result.error || "Unknown error");
+        showErrorToast("重命名失败", result.error || "未知错误");
       }
     } catch (error) {
       console.error("Error renaming profile:", error);
-      showErrorToast("Error renaming profile", String(error));
+      showErrorToast("重命名出错", String(error));
     } finally {
       setIsLoading(false);
     }
@@ -326,11 +326,11 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
   const profileOptions: DropdownOption[] = [
     ...profiles.map((profile: string) => ({
       data: profile,
-      label: profile === "decky-lsfg-vk" ? "Default" : profile
+      label: profile === "decky-lsfg-vk" ? "默认" : profile
     })),
     {
       data: "__NEW_PROFILE__",
-      label: "New Profile"
+      label: "新建配置"
     }
   ];
 
@@ -357,7 +357,7 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
             border: "1px solid rgba(0, 255, 0, 0.3)",
             fontSize: "13px"
           }}>
-            <strong>{mainRunningApp.display_name}</strong> running. Close game to change profile.
+            <strong>{mainRunningApp.display_name}</strong> 正在运行。请关闭游戏后再切换配置。
           </div>
         </PanelSectionRow>
       )}
@@ -374,7 +374,7 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
             color: "white"
           }}
         >
-          Profile: {selectedProfile === "decky-lsfg-vk" ? "Default" : selectedProfile}
+          当前配置：{selectedProfile === "decky-lsfg-vk" ? "默认" : selectedProfile}
         </div>
       </PanelSectionRow>
 
@@ -421,7 +421,7 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
               onClick={handleRenameProfile}
               disabled={isLoading || selectedProfile === "decky-lsfg-vk" || !!mainRunningApp}
             >
-              Rename
+              重命名
             </ButtonItem>
           </PanelSectionRow>
           
@@ -431,7 +431,7 @@ export function ProfileManagement({ currentProfile, onProfileChange }: ProfileMa
               onClick={handleDeleteProfile}
               disabled={isLoading || selectedProfile === "decky-lsfg-vk" || !!mainRunningApp}
             >
-              Delete
+              删除
             </ButtonItem>
           </PanelSectionRow>
         </>

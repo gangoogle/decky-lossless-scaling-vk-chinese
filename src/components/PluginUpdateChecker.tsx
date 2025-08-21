@@ -102,17 +102,17 @@ export const PluginUpdateChecker: React.FC<PluginUpdateCheckerProps> = () => {
 
     if (updateInfo.updateAvailable) {
       if (downloadResult?.success) {
-        return "✓ v" + updateInfo.latestVersion + " downloaded - ready to install";
+        return "✓ v" + updateInfo.latestVersion + " 已下载 - 可安装";
       } else {
-        return "Update available: v" + updateInfo.latestVersion;
+        return "有新版本可用：v" + updateInfo.latestVersion;
       }
     } else {
-      return "Up to date (v" + updateInfo.currentVersion + ")";
+      return "已是最新版本 (v" + updateInfo.currentVersion + ")";
     }
   };
 
   return (
-    <PanelSection title="PLUGIN UPDATES">
+    <PanelSection title="插件更新">
       <PanelSectionRow>
         <ButtonItem
           layout="below"
@@ -120,7 +120,7 @@ export const PluginUpdateChecker: React.FC<PluginUpdateCheckerProps> = () => {
           disabled={checkingUpdate}
           description={getStatusMessage()}
         >
-          {checkingUpdate ? 'Checking for updates...' : 'Check for Updates'}
+          {checkingUpdate ? '正在检查更新…' : '检查更新'}
         </ButtonItem>
       </PanelSectionRow>
 
@@ -130,9 +130,9 @@ export const PluginUpdateChecker: React.FC<PluginUpdateCheckerProps> = () => {
             layout="below"
             onClick={handleDownloadUpdate}
             disabled={downloadingUpdate}
-            description={`Download version ${updateInfo.latestVersion}`}
+            description={`下载版本 ${updateInfo.latestVersion}`}
           >
-            {downloadingUpdate ? 'Downloading...' : 'Download Update'}
+            {downloadingUpdate ? '正在下载…' : '下载更新'}
           </ButtonItem>
         </PanelSectionRow>
       )}
@@ -140,22 +140,22 @@ export const PluginUpdateChecker: React.FC<PluginUpdateCheckerProps> = () => {
       {downloadResult?.success && (
         <>
           <PanelSectionRow>
-            <Field label="Download Complete!">
+            <Field label="下载完成！">
               <Focusable>
-                File saved to: {downloadResult.download_path}
+                文件已保存至：{downloadResult.download_path}
               </Focusable>
             </Field>
           </PanelSectionRow>
           
           <PanelSectionRow>
-            <Field label="Installation Instructions:">
+            <Field label="安装说明：">
               <Focusable>
-                1. Go to Decky Loader settings
-                <br />2. Click "Developer" tab
-                <br />3. Click "Uninstall" next to "Lossless Scaling"
-                <br />4. Click "Install from ZIP"
-                <br />5. Select the downloaded file
-                <br />6. Restart Steam or reload plugins
+                1. 打开 Decky Loader 设置<br />
+                2. 点击“开发者”标签<br />
+                3. 在“Lossless Scaling”旁点击“卸载”<br />
+                4. 点击“从 ZIP 安装”<br />
+                5. 选择刚刚下载的文件<br />
+                6. 重启 Steam 或重新加载插件
               </Focusable>
             </Field>
           </PanelSectionRow>
@@ -164,7 +164,7 @@ export const PluginUpdateChecker: React.FC<PluginUpdateCheckerProps> = () => {
 
       {updateError && (
         <PanelSectionRow>
-          <Field label="Error:">
+          <Field label="错误：">
             <Focusable>
               {updateError}
             </Focusable>
